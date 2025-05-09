@@ -113,31 +113,175 @@
     </section>
 
     <!-- Integrations Section -->
-    <section class="py-16">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">Built With Integration in Mind</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-center">
-                <div class="mdc-card">
-                    <p class="font-semibold">Google Analytics 4</p>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing Platform Logos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Basic Reset & Body Styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+            margin: 0;
+            padding: 20px; /* Default padding */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        *, *::before, *::after {
+            box-sizing: inherit;
+        }
+
+        /* Main Content Wrapper */
+        .content-wrapper {
+            width: 100%;
+            max-width: 900px; /* Max width for the content */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Section Styling */
+        #marketing-logos {
+            background-color: #fff; /* White background for the section */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+            border-radius: 12px; /* Rounded corners */
+            padding: 30px; /* Default padding for the section */
+        }
+
+        /* Heading Styling */
+        #marketing-logos h1 {
+            font-size: 1.875em; /* Approx 30px, equivalent to text-2xl */
+            font-weight: 700; /* Bold */
+            text-align: center;
+            color: #1f2937; /* Dark gray text */
+            margin-top: 0;
+            margin-bottom: 32px; /* Space below heading */
+        }
+
+        /* Grid Container for Logos */
+        .logos-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Single column by default for mobile */
+            gap: 24px; /* Gap between grid items */
+        }
+
+        /* Individual Logo Card Styling */
+        .logo-card {
+            background-color: #f9fafb; /* Very light gray for card background */
+            padding: 24px;
+            border-radius: 8px; /* Slightly rounded corners for cards */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 160px; /* Fixed height for consistent card size */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .logo-card:hover {
+            transform: translateY(-5px); /* Slight lift on hover */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Enhanced shadow on hover */
+        }
+
+        /* Logo Image Styling */
+        .logo-image {
+            object-fit: contain; /* Ensure logo aspect ratio is maintained */
+            max-height: 60px; /* Consistent max height for logos */
+            width: auto; /* Allow width to adjust */
+            margin-bottom: 12px; /* Space between logo and text */
+        }
+
+        /* Logo Name Text Styling */
+        .logo-name {
+            font-size: 0.875rem; /* 14px */
+            font-weight: 500; /* Medium weight */
+            color: #374151; /* Medium gray text */
+        }
+
+        /* Media Queries for Responsive Design */
+        /* Medium screens (tablets, small desktops) - 2 columns */
+        @media (min-width: 640px) {
+            body {
+                padding: 24px; /* Adjust body padding */
+            }
+            #marketing-logos {
+                padding: 32px; /* Adjust section padding */
+            }
+            #marketing-logos h1 {
+                font-size: 2.25em; /* Approx 36px, equivalent to sm:text-3xl */
+                margin-bottom: 40px;
+            }
+            .logos-grid {
+                grid-template-columns: repeat(2, 1fr); /* Two columns */
+                gap: 32px;
+            }
+        }
+
+        /* Large screens (desktops) - 3 columns */
+        @media (min-width: 1024px) {
+            body {
+                padding: 32px; /* Adjust body padding */
+            }
+            #marketing-logos {
+                padding: 40px; /* Adjust section padding */
+            }
+             #marketing-logos h1 {
+                margin-bottom: 48px;
+            }
+            .logos-grid {
+                grid-template-columns: repeat(3, 1fr); /* Three columns */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <section id="marketing-logos">
+            <h1>Marketing Platform Logos</h1>
+            <div class="logos-grid">
+
+                <div class="logo-card">
+                    <img src="https://www.gstatic.com/analytics-suite/header/suite/v2/ic_analytics.svg" alt="Google Analytics 4 Logo" class="logo-image" onerror="this.onerror=null;this.src='https://placehold.co/150x60/e2e8f0/4a5568?text=GA4+Error';">
+                    <p class="logo-name">Google Analytics 4</p>
                 </div>
-                <div class="mdc-card">
-                    <p class="font-semibold">Google Ads</p>
+
+                <div class="logo-card">
+                    <img src="https://www.gstatic.com/images/branding/product/2x/ads_48dp.png" alt="Google Ads Logo" class="logo-image" onerror="this.onerror=null;this.src='https://placehold.co/150x60/e2e8f0/4a5568?text=Ads+Error';">
+                    <p class="logo-name">Google Ads</p>
                 </div>
-                <div class="mdc-card">
-                    <p class="font-semibold">HubSpot</p>
+
+                <div class="logo-card">
+                    <img src="https://www.hubspot.com/hubfs/assets/hubspot.com/style-guide/brand-guidelines/guidelines_the-logo.svg" alt="HubSpot Logo" class="logo-image" onerror="this.onerror=null;this.src='https://placehold.co/150x60/e2e8f0/4a5568?text=HubSpot+Error';">
+                    <p class="logo-name">HubSpot</p>
                 </div>
-                <div class="mdc-card">
-                    <p class="font-semibold">Salesforce</p>
+
+                <div class="logo-card">
+                    <img src="https://www.salesforce.com/content/dam/web/en_us/www/images/nav/salesforce-logo.svg" alt="Salesforce Logo" class="logo-image" onerror="this.onerror=null;this.src='https://placehold.co/150x60/e2e8f0/4a5568?text=Salesforce+Error';">
+                    <p class="logo-name">Salesforce</p>
                 </div>
-                <div class="mdc-card">
-                    <p class="font-semibold">Shopify</p>
+
+                <div class="logo-card">
+                    <img src="https://cdn.shopify.com/shopifycloud/brochure/assets/brand-assets/shopify-logo-primary-logo-456baa801ee66a0a435671082365958316831c9960c480451dd0330bcdae304f.svg" alt="Shopify Logo" class="logo-image" onerror="this.onerror=null;this.src='https://placehold.co/150x60/e2e8f0/4a5568?text=Shopify+Error';">
+                    <p class="logo-name">Shopify</p>
                 </div>
-                <div class="mdc-card">
-                    <p class="font-semibold">Meta Business Suite</p>
+
+                <div class="logo-card">
+                    <img src="https://www.facebook.com/images/fb_icon_325x325.png" alt="Meta Business Suite Logo" class="logo-image" onerror="this.onerror=null;this.src='https://placehold.co/150x60/e2e8f0/4a5568?text=Meta+Error';">
+                    <p class="logo-name">Meta Business Suite</p>
                 </div>
+
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
+</body>
+</html>
 
     <!-- CTA Section -->
     <section id="demo" class="bg-blue-600 text-white py-16">
