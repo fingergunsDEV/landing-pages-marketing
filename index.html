@@ -21,6 +21,506 @@
         }
     </style>
 </head>
+<div class="navigation">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navigation {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: #fff;
+      padding: 1rem;
+      color: #0074d9;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Logo */
+    .nav-logo img {
+      height: 40px;
+      vertical-align: middle;
+    }
+
+    /* Mobile Menu Toggle */
+    .menu-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #0074d9;
+      font-size: 1.125rem;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .menu-icon {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    /* Menu Items */
+    .nav-menu {
+      display: none;
+      list-style: none;
+      width: 100%;
+    }
+
+    .nav-item {
+      position: relative;
+    }
+
+    .nav-item > a {
+      color: #0074d9;
+      text-decoration: none;
+      padding: 1rem 1.5rem;
+      display: block;
+      font-size: 1.125rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .nav-item > a:hover {
+      background-color: #3b82f6;
+      color: #fff;
+    }
+
+    /* Mega Menu */
+    .mega-menu {
+      background-color: #fff;
+      padding: 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: none;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .mega-menu.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mega-menu-column {
+      padding: 0.5rem;
+      min-width: 200px;
+    }
+
+    .mega-menu-column h3 {
+      color: #1f2937;
+      font-size: 1.125rem;
+      font-weight: 600;
+      border-bottom: 2px solid #3b82f6;
+      padding-bottom: 0.5rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .mega-menu-column h3:hover {
+      color: #3b82f6;
+    }
+
+    .mega-menu-column h3::after {
+      content: '▼';
+      float: right;
+      font-size: 0.75rem;
+      transition: transform 0.3s ease;
+    }
+
+    .mega-menu-column.active h3::after {
+      transform: rotate(180deg);
+    }
+
+    .mega-menu-column ul {
+      list-style: none;
+      padding: 0;
+      display: none;
+      opacity: 0;
+      transform: translateY(-5px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .mega-menu-column.active ul {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mega-menu-column ul li {
+      margin: 0.5rem 0;
+    }
+
+    .mega-menu-column ul li a {
+      text-decoration: none;
+      color: #4b5563;
+      font-size: 0.875rem;
+      display: block;
+      padding: 0.25rem 0;
+      transition: color 0.3s ease, padding-left 0.3s ease, background-color 0.3s ease;
+    }
+
+    .mega-menu-column ul li a:hover {
+      color: #3b82f6;
+      padding-left: 0.5rem;
+      background-color: #eff6ff;
+    }
+
+    /* Mobile Styles */
+    @media (max-width: 767px) {
+      .nav-menu.active {
+        display: block;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        background-color: #fff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+
+      .mega-menu {
+        position: static;
+        box-shadow: none;
+        display: block; /* Ensure mega-menu is always block on mobile */
+        opacity: 1;
+        transform: none;
+      }
+
+      .mega-menu-column.active ul {
+        display: block !important; /* Override any conflicting rules */
+      }
+    }
+
+    /* Desktop Styles */
+    @media (min-width: 768px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .nav-menu {
+        display: flex;
+        position: static;
+        box-shadow: none;
+      }
+
+      .nav-container {
+        justify-content: space-between;
+      }
+
+      .mega-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 200px;
+        display: none;
+      }
+
+      .nav-item:hover .mega-menu {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .mega-menu-column {
+        padding: 0 1rem;
+      }
+
+      .mega-menu-column h3 {
+        cursor: default;
+      }
+
+      .mega-menu-column h3::after {
+        display: none;
+      }
+
+      .mega-menu-column ul {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .mega-menu-column ul li {
+        opacity: 0;
+        transform: translateX(-10px);
+        transition: transform 0.3s ease, opacity 0.3s ease;
+      }
+
+      .nav-item:hover .mega-menu-column ul li {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .mega-menu-column ul li:nth-child(1) { transition-delay: 0.05s; }
+      .mega-menu-column ul li:nth-child(2) { transition-delay: 0.1s; }
+      .mega-menu-column ul li:nth-child(3) { transition-delay: 0.15s; }
+      .mega-menu-column ul li:nth-child(4) { transition-delay: 0.2s; }
+      .mega-menu-column ul li:nth-child(5) { transition-delay: 0.25s; }
+      .mega-menu-column ul li:nth-child(6) { transition-delay: 0.3s; }
+      .mega-menu-column ul li:nth-child(7) { transition-delay: 0.35s; }
+      .mega-menu-column ul li:nth-child(8) { transition-delay: 0.4s; }
+      .mega-menu-column ul li:nth-child(9) { transition-delay: 0.45s; }
+      .mega-menu-column ul li:nth-child(10) { transition-delay: 0.5s; }
+      .mega-menu-column ul li:nth-child(11) { transition-delay: 0.55s; }
+      .mega-menu-column ul li:nth-child(12) { transition-delay: 0.6s; }
+      .mega-menu-column ul li:nth-child(13) { transition-delay: 0.65s; }
+      .mega-menu-column ul li:nth-child(14) { transition-delay: 0.7s; }
+      .mega-menu-column ul li:nth-child(15) { transition-delay: 0.75s; }
+      .mega-menu-column ul li:nth-child(16) { transition-delay: 0.8s; }
+      .mega-menu-column ul li:nth-child(17) { transition-delay: 0.85s; }
+      .mega-menu-column ul li:nth-child(18) { transition-delay: 0.9s; }
+      .mega-menu-column ul li:nth-child(19) { transition-delay: 0.95s; }
+      .mega-menu-column ul li:nth-child(20) { transition-delay: 1s; }
+    }
+  </style>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <img src="https://cdn.prod.website-files.com/65db95957d65c02ae759f762/66fca6720ecaf4e682af0a99_blue%20logo%20new.avif" alt="Holistic Growth Marketing Logo">
+      </div>
+      <div class="menu-toggle" onclick="toggleMenu()" aria-expanded="false" aria-controls="nav-menu" role="button">
+        <span>Menu</span>
+        <svg class="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </div>
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-item">
+          <a href="#">Services</a>
+          <div class="mega-menu">
+            <div class="mega-menu-column">
+              <h3 onclick="toggleDropdown(this)">Services</h3>
+              <ul>
+                <li><a href="https://www.holisticgrowthmarketing.com/services/search-engine-optimization">SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/services/on-page-seo">On-page SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/services/off-page-seo">Off-page SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/services/technical-seo">Technical SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/services/keyword-research">Keyword Research</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/services/google-business-seo">Google Business SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/services/local-seo">Local SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/services/e-commerce-seo">E-commerce SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/services/link-building">Link Building</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/services/digital-marketing">Digital Marketing</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/services/content-marketing">Content Marketing</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/services/email-marketing">Email Marketing</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/services/marketing-automation">Marketing Automation</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/services/conversion-rate-optimization">Conversion Rate Optimization</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/services/web-design">Web Design</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/services/web-development-services">Web Development</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/services/content-creation">Content Creation</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/services/business-intelligence">Business Intelligence</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/services/data-analysis-and-reporting">Data Analysis</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/services/trend-analysis-forecasting">Trend Analysis</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/services/seo-reporting-services">SEO Reporting</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/services/review-management">Review Management</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/services/local-ads-management">Local Ads Management</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#">Locations</a>
+          <div class="mega-menu">
+            <div class="mega-menu-column">
+              <h3 onclick="toggleDropdown(this)">Locations</h3>
+              <ul>
+                <li><a href="https://www.holisticgrowthmarketing.com/atlanta-seo">Atlanta SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/beverly-hills-seo">Beverly Hills SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/locations/boston-seo">Boston SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/chicago-seo">Chicago SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/locations/cleveland-oh-seo">Cleveland SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/culver-city-seo">Culver City SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/locations/dallas-seo">Dallas SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/locations/detroit-seo-services">Detroit SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/locations/echo-park-digital-marketing-seo">Echo Park SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/locations/el-paso-seo">El Paso SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/houston-seo">Houston SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/locations/indianapolis-seo">Indianapolis SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/locations/kansas-city-seo">Kansas City SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/locations/los-angeles-seo">Los Angeles SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/los-angeles/hollywood-seo-services">Hollywood SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/marina-del-rey-seo">Marina Del Rey SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/locations/memphis-seo">Memphis SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/miami-seo">Miami SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/locations/nashville-seo">Nashville SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/new-york-city-seo">New York City SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/locations/new-orleans-seo">New Orleans SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/locations/orlando-seo-services">Orlando SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/locations/philadlphia-seo">Philadelphia SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/locations/portland-seo">Portland SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/san-francisco-seo">San Francisco SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/locations/san-antonio-seo">San Antonio SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/los-angeles/santa-monica-seo">Santa Monica SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/locations/seattle-seo">Seattle SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/locations/st-louis-seo">St. Louis SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/venice-seo">Venice SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/locations/washington-dc-seo">Washington DC SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/los-angeles/west-la-seo-services">West LA SEO</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#">Industries</a>
+          <div class="mega-menu">
+            <div class="mega-menu-column">
+              <h3 onclick="toggleDropdown(this)">Industries</h3>
+              <ul>
+                <li><a href="https://www.holisticgrowthmarketing.com/sectors/construction-seo">Construction SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/industies/durable-goods-manufacturing-seo">Durable Goods Manufacturing SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/industies/finance-banking-seo">Finance and Banking SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/industies/healthcare-seo">Healthcare SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/industies/nonresidential-construction-seo">Nonresidential Construction SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/industies/property-management-seo">Property Management SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/industies/residential-construction-seo">Residential Construction SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/industies/roofing">Roofing SEO</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#">Resources</a>
+          <div class="mega-menu">
+            <div class="mega-menu-column">
+              <h3 onclick="toggleDropdown(this)">Resources</h3>
+              <ul>
+                <li><a href="https://www.holisticgrowthmarketing.com/resources/best-articles">Best Articles</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/resources/content-analyzer">Content Analyzer</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/resources/data-driven-marketing">Data-Driven Marketing</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/resources/glossary">Glossary</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/resources/google-sheets-templates">Google Sheets Templates</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/resources/holistic-growth">Holistic Growth</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/resources/holistic-marketing">Holistic Marketing</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/resources/holistic-seo">Holistic SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/resources/html-analyzer">HTML Analyzer</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/resources/html-markdown-editor">HTML Markdown Editor</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/resources/image-converter">Image Converter</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/resources/information-retrieval">Information Retrieval</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/resources/local-info/beverly-hills-business-statistics-2025">Beverly Hills Business Statistics</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/resources/newsletter">Newsletter</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/resources/popular-articles">Popular Articles</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/resources/schema-markup-seo">Schema Markup SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/resources/seo-case-study-national-franchise">SEO Case Study</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/resources/seo-fundamentals">SEO Fundamentals</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/resources/sitemap-analyzer">Sitemap Analyzer</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#">Articles</a>
+          <div class="mega-menu">
+            <div class="mega-menu-column">
+              <h3 onclick="toggleDropdown(this)">Articles</h3>
+              <ul>
+                <li><a href="https://www.holisticgrowthmarketing.com/article/seo-in-2024-a-beginners-guide">SEO in 2024: A Beginner's Guide</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/article/affectionate-seo-and">Affectionate SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/article/align-seo-customer-journey">Align SEO with Customer Journey</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/article/conversion-rate-optimization-a-guide-for-venice-businesses">CRO for Venice Businesses</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/article/google-chrome-monopoly-issues">Google Chrome Monopoly Issues</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/article/google-my-business-for-better-local-seo">Google My Business for Local SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/article/google-search-console-api-connector">Google Search Console API</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/article/google-seo-2024">Google SEO 2024</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/article/google-sheets-formulas-seo-automations">Google Sheets for SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/article/google-tests-in-browser-code-interpreter-in-ai-overviews">Google AI Overviews</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/article/holistic-marketing-business-growth">Holistic Marketing Growth</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/article/importance-of-attribution">Importance of Attribution</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/article/keyword-research-for-seo">Keyword Research for SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/article/local-seo-insights">Local SEO Insights</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/article/seo-challenges-and-simple-solutions">SEO Challenges & Solutions</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/article/the-power-of-local-backlinks-in-venice-ca">Local Backlinks in Venice</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/article/top-10-ways-to-make-seo-analytics-your-competitive-advantage">SEO Analytics Advantage</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/article/understanding-seo-a-comprehensive-guide">Understanding SEO</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/article/unlocking-lead-generation-how-seo-can-fill-your-sales-pipeline">SEO for Lead Generation</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#">Tools</a>
+          <div class="mega-menu">
+            <div class="mega-menu-column">
+              <h3 onclick="toggleDropdown(this)">Tools</h3>
+              <ul>
+                <li><a href="https://www.holisticgrowthmarketing.com/tools/advanced-prompt-generator">Advanced Prompt Generator</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/tools/ai-code-generator">AI Code Generator</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/tools/branded-vs-non-branded-keywords">Branded vs Non-Branded Keywords</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/tools/chrome-extension-builder">Chrome Extension Builder</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/tools/content-brief-generator">Content Brief Generator</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/tools/google-sheets-to-json-converter">Google Sheets to JSON</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/tools/schema-generator">Schema Generator</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/tools/seo-toolbox">SEO Toolbox</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/tools/word-counter-plus">Word Counter Plus</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#">About</a>
+          <div class="mega-menu">
+            <div class="mega-menu-column">
+              <h3 onclick="toggleDropdown(this)">About</h3>
+              <ul>
+                <li><a href="https://www.holisticgrowthmarketing.com/about-us">About Us</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/contact">Contact</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/ethics-statement">Ethics Statement</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/our-mission">Our Mission</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/pricing">Pricing</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/term/cookies">Cookies Policy</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/term/licensing">Licensing</a></li>
+                <li><a href="https://www.holisticgrowthmarketing.com/term/privacy-policy">Privacy Policy</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <script>
+    function toggleMenu() {
+      const navMenu = document.querySelector('.nav-menu');
+      const menuToggle = document.querySelector('.menu-toggle');
+      navMenu.classList.toggle('active');
+      menuToggle.setAttribute('aria-expanded', navMenu.classList.contains('active'));
+    }
+
+    function toggleDropdown(element) {
+      if (window.innerWidth < 768) {
+        const parent = element.closest('.mega-menu-column');
+        console.log('Toggling dropdown for:', element.textContent, parent); // Debug
+        // Close other dropdowns
+        document.querySelectorAll('.mega-menu-column').forEach(column => {
+          if (column !== parent) {
+            column.classList.remove('active');
+          }
+        });
+        // Toggle the clicked dropdown
+        parent.classList.toggle('active');
+      }
+    }
+
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth < 768) {
+          document.querySelector('.nav-menu').classList.remove('active');
+          document.querySelector('.menu-toggle').setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  </script>
+</div>
+    
 <body class="bg-gray-100">
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-blue-500 to-blue-800 text-white py-20">
